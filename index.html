@@ -104,6 +104,7 @@
       }
       function saveLocalStorage(){
         localStorage.setItem("tasks",JSON.stringify(tasks))
+        console.log(localStorage.setItem("tasks",JSON.stringify(tasks)))
       }
       function showTask(){
         // debugger
@@ -119,11 +120,20 @@
             container.append(div)
             div.append(para)
             div.append(btn)
-            tasks.push(input.value)
             count--
             tottalLoopsRun++
          }
       }
+      container.addEventListener("click",(e)=>{
+           console.log(e.target.tagName)
+           console.log(e.target.parentElement.parentElement)
+           if(e.target.tagName==="I"){
+            console.log()
+            e.target.parentElement.parentElement.remove();
+            saveLocalStorage();
+        
+           }
+      })
       showTask();
     </script>
 </body>
