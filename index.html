@@ -126,9 +126,12 @@
       }
       container.addEventListener("click",(e)=>{
            console.log(e.target.tagName)
-           console.log(e.target.parentElement.parentElement)
            if(e.target.tagName==="I"){
             console.log()
+            let removed=e.target.parentElement.parentElement;
+            let text=document.querySelector("p").textContent;
+            console.log(text)
+            tasks=tasks.filter((elm)=>elm!=text)
             e.target.parentElement.parentElement.remove();
             saveLocalStorage();
         
