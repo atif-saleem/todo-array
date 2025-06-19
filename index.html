@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 90vh;
+        }
+      main{
+        width: 400px;
+        background-color: aqua;
+        border-radius: 10px;
+      }
+      h1{
+        text-align: center;
+      }
+      .insert-ToDo{
+        margin-top: 20px;
+        padding: 10px 15px;
+        display: flex;
+      }
+      input{
+        padding: 10px 20px;
+        border-radius: 50px;
+        width: 80%;
+        border: none;
+        outline: none;
+        margin-right: 10px;
+      }
+      button{
+        padding: 10px 15px;
+        background-color: #e75e0f;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        width: 20%;
+        
+      }
+      button:hover{
+         background-color: #f55e06;
+      }
+      .toDo-container{
+        display: block;
+        margin-top: 20px;
+                padding: 10px 15px;
+
+      }
+      div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+ 
+      p::before{
+        content: "Done";
+        color: green;
+        width: 80px ;
+        height: 40px !;
+        margin-right: 20px;
+      
+        cursor: pointer;
+      }
+      p.checked{
+        text-decoration: line-through;
+      }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>To Do List App</h1>
+        <div class="insert-ToDo">
+            <input type="text" placeholder="Add Todo" id="input"> <button onclick="addToDo()">Add</button>
+        </div>
+        <div class="toDo-container"></div>
+    </main>
+    <script>
+        let input=document.querySelector("#input");
+        let container=document.querySelector(".toDo-container");
+        let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+      function addToDo(){
+        if(input.value==""){
+            alert("Please fill the task field")
+        }
+        else{
+            let div=document.createElement("div");
+            let para=document.createElement("p");
+            let btn=document.createElement("button")
+            btn.innerHTML="<i class='fa-solid fa-xmark'></i>"
+            para.textContent=input.value;
+            container.append(div)
+            div.append(para)
+            div.append(btn)
+            tasks.push(input.value)
+            saveLocalStorage();
+            input.value=""
+        }
+      }
+      function saveLocalStorage(){
+        localStorage.setItem("tasks",JSON.stringify(tasks))
+      }
+      function showTask(){
+        // debugger
+         console.log(localStorage.getItem("tasks"));
+         let count=tasks.length;
+         let tottalLoopsRun=0;
+         while(count>0){
+           let div=document.createElement("div");
+            let para=document.createElement("p");
+            let btn=document.createElement("button")
+            btn.innerHTML="<i class='fa-solid fa-xmark'></i>"
+            para.textContent=tasks[tottalLoopsRun];
+            container.append(div)
+            div.append(para)
+            div.append(btn)
+            tasks.push(input.value)
+            count--
+            tottalLoopsRun++
+         }
+      }
+      showTask();
+    </script>
+</body>
+</html>
+
+  <!-- <script>
+    let container=document.querySelector(".toDo-container")
+    let input=document.querySelector("#input")
+     function addToDo(){
+      
+        let div=document.createElement("div");
+        let btn=document.createElement("button");
+        btn.innerHTML="<i class='fa-solid fa-xmark'></i>";
+        container.append(div);
+        let para=document.createElement("p")
+        para.textContent=input.value;
+        div.append(para)
+        div.append(btn)
+         saveLocalStorage();
+         input.value=""
+         
+     }
+    container.addEventListener("click",(e)=>{
+          if(e.target.tagName=="BUTTON"){
+            e.target.parentElement.remove();
+            saveLocalStorage();
+          }
+          else if(e.target.tagName=="I"){
+            e.target.parentElement.parentElement.remove();
+            saveLocalStorage();
+          }
+          else if(e.target.tagName=="P"){
+                   e.target.classList.toggle("checked")
+          }
+    })
+
+     function saveLocalStorage(){
+         localStorage.setItem('data',container.innerHTML);
+     }
+     function showData(){
+       container.innerHTML=localStorage.getItem("data")
+     }
+     showData();
+        </script> -->
