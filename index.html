@@ -129,12 +129,26 @@
            if(e.target.tagName==="I"){
             console.log()
             let removed=e.target.parentElement.parentElement;
-            let text=document.querySelector("p").textContent;
-            console.log(text)
+             let text=removed.querySelector("p").textContent;
             tasks=tasks.filter((elm)=>elm!=text)
             e.target.parentElement.parentElement.remove();
+           
             saveLocalStorage();
+           
         
+           }
+           else if(e.target.tagName==="BUTTON"){
+            let removed=e.target.parentElement;
+             let text=removed.querySelector("p").textContent;
+            tasks=tasks.filter((elm)=>elm!=text)
+             console.log(removed)
+            console.log(tasks)
+            e.target.parentElement.remove();
+            saveLocalStorage();
+           }
+           else if(e.target.tagName==="P"){
+            let para=document.querySelector("p");
+            e.target.classList.toggle("checked");
            }
       })
       showTask();
